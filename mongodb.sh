@@ -6,10 +6,13 @@ cp configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
 print_head "Install MongoDB"
 yum install mongodb-org -y &>>${log_file}
 
+print_head "Update MongoDB Listen address"
+sed -i -r 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
+
 print_head "Enable MongoDB"
 systemctl enable mongod &>>${log_file}
 
 print_head "start MongoDB"
-systemctl start mongod &>>${log_file}
+systemctl restart mongod &>>${log_file}
 
-#Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/mongod.conf
+
