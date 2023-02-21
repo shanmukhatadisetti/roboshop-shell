@@ -15,7 +15,7 @@ mkdir /app &>>${log_file}
 print_head "Delete Old Content"
 rm -rf /app/* &>>${log_file}
 
-Print_head "Download App Content"
+Print_head "Downloading App Content"
 curl -L -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>${log_file}
 cd /app
 
@@ -28,7 +28,7 @@ npm install &>>${log_file}
 print_head "copy SystemD Service File"
 cp configs/catalogue.service /etc/systemd/system/catalogue.service &>>${log_file}
 
-print_head"REload SystemD"
+print_head "Reload SystemD"
 systemctl daemon-reload &>>${log_file}
 
 print_head "Enable Catalogue Service"
