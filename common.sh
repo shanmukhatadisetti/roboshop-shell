@@ -90,4 +90,8 @@ nodejs() {
   status_check $?
 
  schema_setup
+}
+java() {
 
+
+}
