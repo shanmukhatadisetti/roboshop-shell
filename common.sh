@@ -124,7 +124,9 @@ mvn clean package
 mv target/${component}-1.0.jar ${component}.jar
 status_check $?
 
+#Schema Setup Function
 schema_setup
 
+#SystemD Function
 systemd_setup
 }
