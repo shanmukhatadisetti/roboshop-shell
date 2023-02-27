@@ -30,6 +30,47 @@ schema_setup() {
     mongo --host mongodb.autonagar.in </app/schema/${component}.js &>>${log_file}
     status_check $?
   fi
+  elif [ "${schema_type}" == "mysql" ]; then
+    print_head "Install MySQl Client"
+    yum install mysql -y
+    status_check $?
+
+    print_head "Load Schema"
+    mysql -h mysql.autonagar.in -uroot -p${mysql_root_password} < /app/schema/shipping.sql
+    status_check $?
+    fi
+}
+
+app_prereq_setup() {
+
+    print_head "Create Robshop User"
+    id roboshop $>>${log_file}
+    if [ $? -ne 0 ]; then
+    useradd roboshop &>>${log_file}
+    fi
+    status_check $?
+
+    print_head "Create Application Directory"
+    if [ ! -d /app ]; then
+    mkdir /app &>>${log_file}
+    fi
+    status_check $?
+
+    print_head "Delete Old Content"
+    rm -rf /app/* &>>${log_file}
+    status_check $?
+
+
+    print_head "Downloading App Content"
+    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
+    status_check $?
+    cd /app
+
+
+    print_head "Extracting App Content"
+    unzip /tmp/${component}.zip &>>${log_file}
+    status_check $?
+
 }
 
 nodejs() {
@@ -41,33 +82,7 @@ nodejs() {
   yum install nodejs -y &>>${log_file}
   status_check $?
 
-  print_head "Create Robshop User"
-  id roboshop $>>${log_file}
-  if [ $? -ne 0 ]; then
-  useradd roboshop &>>${log_file}
-  fi
-  status_check $?
-
-  print_head "Create Application Directory"
-  if [ ! -d /app ]; then
-  mkdir /app &>>${log_file}
-  fi
-  status_check $?
-
-  print_head "Delete Old Content"
-  rm -rf /app/* &>>${log_file}
-  status_check $?
-
-
-  print_head "Downloading App Content"
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
-  status_check $?
-  cd /app
-
-
-  print_head "Extracting App Content"
-  unzip /tmp/${component}.zip &>>${log_file}
-  status_check $?
+app_prereq_setup
 
   print_head "Installing NodeJS Dependencies"
   npm install &>>${log_file}
@@ -91,13 +106,23 @@ nodejs() {
 
  schema_setup
 }
+
 java() {
 
+print_head "Install Maven"
 yum install maven -y
-useradd roboshop
-mkdir /app
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
-cd /app
-unzip /tmp/shipping.zip
+status_check $?
 
+app_prereq_setup
+
+print_head "Download Dependencies & packages"
+mvn clean package
+mv target/${component}-1.0.jar ${component}.jar
+status_check $?
+
+schema_setup
+
+systemctl daemon-reload
+systemctl enable shipping
+systemctl start shipping
 }
