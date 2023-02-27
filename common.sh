@@ -51,11 +51,11 @@ schema_setup() {
   fi
   elif [ "${schema_type}" == "mysql" ]; then
     print_head "Install MySQl Client"
-    yum install mysql -y
+    yum install mysql -y &>>${log_file}
     status_check $?
 
     print_head "Load Schema"
-    mysql -h mysql.autonagar.in -uroot -p${mysql_root_password} < /app/schema/shipping.sql
+    mysql -h mysql.autonagar.in -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
     status_check $?
     fi
 }
@@ -114,14 +114,14 @@ app_prereq_setup
 java() {
 
 print_head "Install Maven"
-yum install maven -y
+yum install maven -y &>>${log_file}
 status_check $?
 
 app_prereq_setup
 
 print_head "Download Dependencies & packages"
-mvn clean package
-mv target/${component}-1.0.jar ${component}.jar
+mvn clean package &>>${log_file}
+mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
 status_check $?
 
 #Schema Setup Function
