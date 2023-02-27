@@ -16,6 +16,25 @@ status_check() {
       fi
 }
 
+systemd_setup() {
+
+  print_head "copy SystemD Service File"
+    cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+    status_check $?
+
+    print_head "Reload SystemD"
+    systemctl daemon-reload &>>${log_file}
+    status_check $?
+
+    print_head "Enable ${component} Service"
+    systemctl enable ${component} &>>${log_file}
+    status_check $?
+
+    print_head "Start ${component} Service "
+    systemctl restart ${component} &>>${log_file}
+    status_check $?
+}
+
 schema_setup() {
   if [ "${schema_type}" == "mongo" ]; then
     print_head "Copy MongoDB Repo File"
@@ -88,22 +107,7 @@ app_prereq_setup
   npm install &>>${log_file}
   status_check $?
 
-  print_head "copy SystemD Service File"
-  cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
-  status_check $?
-
-  print_head "Reload SystemD"
-  systemctl daemon-reload &>>${log_file}
-  status_check $?
-
-  print_head "Enable ${component} Service"
-  systemctl enable ${component} &>>${log_file}
-  status_check $?
-
-  print_head "Start ${component} Service "
-  systemctl start ${component} &>>${log_file}
-  status_check $?
-
+  systemd_setup
  schema_setup
 }
 
@@ -122,7 +126,5 @@ status_check $?
 
 schema_setup
 
-systemctl daemon-reload
-systemctl enable shipping
-systemctl start shipping
+systemd_setup
 }
