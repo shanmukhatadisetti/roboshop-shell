@@ -22,6 +22,8 @@ systemd_setup() {
     cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
     status_check $?
 
+
+
     print_head "Reload SystemD"
     systemctl daemon-reload &>>${log_file}
     status_check $?
