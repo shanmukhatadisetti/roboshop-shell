@@ -1,8 +1,8 @@
 source common.sh
 
-mysql_root_password=$1
+roboshop_app_password=$1
 
-if [ "${mysql_root_password}" ]; then
+if [ "${roboshop_root_password}" ]; then
   echo -e "\e[31mMissing MySQL Root Password Argument\e[0m"
   exit 1
 fi
@@ -28,7 +28,7 @@ systemctl start rabbitmq-server &>>${log_file}
 status_check $?
 
 print_head "Add Application User"
-rabbitmqctl add_user roboshop roboshop123 &>>${log_file}
+rabbitmqctl add_user roboshop ${roboshop_app_password} &>>${log_file}
 status_check $?
 
 print_head "Configure Permission for App User"
