@@ -45,12 +45,14 @@ VALIDATION $? "Enabled Nodejs 20 Version"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATION $? "Installing Nodejs "
 
-id roboshop
+id roboshop &>>$LOG_FILE
 if [ $? != 0 ]
 then 
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATION $? "Creating System User"
 fi
+
+rm -rf /app/*
 
 mkdir -p /app &>>$LOG_FILE
 VALIDATION $? "Created app Directory"
