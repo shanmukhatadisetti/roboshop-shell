@@ -45,8 +45,12 @@ VALIDATION $? "Enabled Nodejs 20 Version"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATION $? "Installing Nodejs "
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
-VALIDATION $? "Creating System User"
+id roboshop
+if [ $? != 0 ]
+then 
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+    VALIDATION $? "Creating System User"
+fi
 
 mkdir -p /app &>>$LOG_FILE
 VALIDATION $? "Created app Directory"
@@ -61,7 +65,7 @@ VALIDATION $? "Changed to /app and Unzipping Content"
 npm install &>>$LOG_FILE
 VALIDATION $? "Installing Dependencies"
 
-cp $user_home/catalogue.service /etc/systemd/system/catalogue.service
+cp $user_home/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATION $? "Copying Catalogue Service File"
 
 systemctl daemon-reload
