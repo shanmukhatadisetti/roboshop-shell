@@ -20,6 +20,7 @@ then
 else
     echo -e "$R ERROR::You have to run with root user $W" | tee -a $LOG_FILE
     exit 1
+fi
 
 VALIDATION(){
     if [ $1 != 0 ]
@@ -35,18 +36,18 @@ VALIDATION(){
 cp mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATION $? "Copying mongodb.repo"
 
-# dnf install mongodb-org -y &>>$LOG_FILE
-# VALIDATION $? "installing mongodb"
+dnf install mongodb-org -y &>>$LOG_FILE
+VALIDATION $? "installing mongodb"
 
-# systemctl enable mongod &>>$LOG_FILE
-# VALIDATION $? "enabling mongodb"
+systemctl enable mongod &>>$LOG_FILE
+VALIDATION $? "enabling mongodb"
 
 
-# systemctl start mongod &>>$LOG_FILE
-# VALIDATION $? "starting mongodb"
+systemctl start mongod &>>$LOG_FILE
+VALIDATION $? "starting mongodb"
 
-# sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
-# VALIDATION $? "changing mongod.conf file"
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
+VALIDATION $? "changing mongod.conf file"
 
-# systemctl restart mongod &>>$LOG_FILE
-# VALIDATION $? "restarting mongodb"
+systemctl restart mongod &>>$LOG_FILE
+VALIDATION $? "restarting mongodb"
