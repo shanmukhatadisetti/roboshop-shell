@@ -29,6 +29,7 @@ VALIDATION(){
         echo -e "$G $2 is Successful $W" | tee -a $LOG_FILE
     else
         echo -e "$R $2 is Failed $W" | tee -a $LOG_FILE
+        exit 1
     fi
 }
 
