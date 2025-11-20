@@ -33,16 +33,16 @@ VALIDATION(){
     fi
 }
 
-dnf module disable redis -y $>>$LOG_FILE
+dnf module disable redis -y &>>$LOG_FILE
 VALIDATION $? "Disabled default redis version"
 
-dnf module enable redis:7 -y $>>$LOG_FILE
+dnf module enable redis:7 -y &>>$LOG_FILE
 VALIDATION $? "Enabled redis:7 Version" 
 
-dnf install redis -y $>>$LOG_FILE
+dnf install redis -y &>>$LOG_FILE
 VALIDATION $? "Installing redis"
 
-sed -i -e 's/127.0.01/0.0.0.0/g' -e '/protected-mode/ c protected-mode no ' /etc/redis/redis.conf $>>$LOG_FILE
+sed -i -e 's/127.0.01/0.0.0.0/g' -e '/protected-mode/ c protected-mode no ' /etc/redis/redis.conf &>>$LOG_FILE
 VALIDATION $? "Editing Redis Conf"
 
 systemctl enable redis
