@@ -83,6 +83,11 @@ VALIDATION $? "Copying mongo repo"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATION $? "Installing Mongodb Client"
 
-mongosh --host mongodb.autonagar.in </app/db/master-data.js &>>$LOG_FILE
-VALIDATION $? "Loading Data into Mongodb server"
-
+mongodb_check=$(mongosh --host mongodb.autonagar.in --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+if [ $mongodb_check -lt 0 ]
+then
+    mongosh --host mongodb.autonagar.in </app/db/master-data.js &>>$LOG_FILE
+    VALIDATION $? "Loading Data into Mongodb server"
+else
+    echo -e "Catalogue Data already loaded...$Y Skipping $W"
+fi
