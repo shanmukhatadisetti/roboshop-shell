@@ -45,6 +45,6 @@ VALIDATION $? "Installing redis"
 sed -i -e 's/127.0.01/0.0.0.0/g' -e '/protected-mode/ c protected-mode no ' /etc/redis/redis.conf &>>$LOG_FILE
 VALIDATION $? "Editing Redis Conf"
 
-systemctl enable redis
-systemctl start redis
+systemctl enable redis &>>$LOG_FILE
+systemctl start redis &>>$LOG_FILE
 VALIDATION $? "Restarted redis service"
