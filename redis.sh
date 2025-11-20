@@ -45,5 +45,5 @@ sed -i -e 's/127.0.01/0.0.0.0/g' -e '/protected-mode/ c protected-mode no ' /etc
 VALIDATION $? "Editing Redis Conf"
 
 systemctl enable redis
-systemctl restart redis
+systemctl start redis
 VALIDATION $? "Restarted redis service"
