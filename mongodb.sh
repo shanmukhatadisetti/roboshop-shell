@@ -28,7 +28,7 @@ VALIDATION(){
         exit 1
     else
         echo -e "$G  has been succesful " | tee -a $LOG_FILE
-}
+    }
 
 
 cp mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
