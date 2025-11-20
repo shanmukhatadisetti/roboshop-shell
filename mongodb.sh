@@ -35,16 +35,18 @@ VALIDATION(){
 cp mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATION $? "Copying mongodb.repo"
 
-dnf install mongodb-org -y &>>$LOG_FILE
-VALIDATION $? "installing mongodb"
+# dnf install mongodb-org -y &>>$LOG_FILE
+# VALIDATION $? "installing mongodb"
 
-systemctl enable mongod &>>$LOG_FILE
-VALIDATION $? "enabling mongodb"
-systemctl start mongod &>>$LOG_FILE
-VALIDATION $? "starting mongodb"
+# systemctl enable mongod &>>$LOG_FILE
+# VALIDATION $? "enabling mongodb"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
-VALIDATION $? "changing mongod.conf file"
 
-systemctl restart mongod &>>$LOG_FILE
-VALIDATION $? "restarting mongodb"
+# systemctl start mongod &>>$LOG_FILE
+# VALIDATION $? "starting mongodb"
+
+# sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
+# VALIDATION $? "changing mongod.conf file"
+
+# systemctl restart mongod &>>$LOG_FILE
+# VALIDATION $? "restarting mongodb"
