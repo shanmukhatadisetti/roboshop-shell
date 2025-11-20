@@ -5,6 +5,7 @@ VALIDATION(){
         exit 1
     else
         echo -e "$G  has been succesful" | tee -a $LOG_FILE
+    fi
 }
 
 
