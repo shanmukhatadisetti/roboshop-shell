@@ -30,9 +30,9 @@ fi
 VALIDATION(){
     if [ $1 == 0 ]
     then
-        echo -e "$G $2 Installation is Successful $W" | tee -a $LOG_FILE
+        echo -e "$G $2  is Successful $W" | tee -a $LOG_FILE
     else
-        echo -e "$R ERROR:: $2 Installation is failed $W" | tee -a $LOG_FILE
+        echo -e "$R ERROR:: $2  is failed $W" | tee -a $LOG_FILE
     fi 
 }
 
