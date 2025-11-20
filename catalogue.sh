@@ -50,6 +50,8 @@ if [ $? != 0 ]
 then 
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATION $? "Creating System User"
+else
+    echo -e "System User already Created...$Y Skipping $W"
 fi
 
 rm -rf /app/*
