@@ -77,12 +77,12 @@ systemctl enable catalogue
 systemctl restart catalogue
 VALIDATION $? "Starting Catalogue Service"
 
-cp $user_home/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp $user_home/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATION $? "Copying mongo repo"
 
-dnf install mongodb-mongosh -y 
+dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATION $? "Installing Mongodb Client"
 
-mongosh --host mongodb.autonagar.in </app/db/master-data.js
+mongosh --host mongodb.autonagar.in </app/db/master-data.js &>>$LOG_FILE
 VALIDATION $? "Loading Data into Mongodb server"
 
