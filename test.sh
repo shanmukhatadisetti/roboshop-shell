@@ -9,7 +9,7 @@ VALIDATION(){
         echo -e "$R ERROR:: $2 has been failed $W" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$G  has been succesful" | tee -a $LOG_FILE
+        echo -e "$G  $2 has been succesful" | tee -a $LOG_FILE
     fi
 }
 
