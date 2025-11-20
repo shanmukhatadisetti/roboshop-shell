@@ -1,3 +1,8 @@
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+W="\e[0m"
+
 VALIDATION(){
     if [ $1 != 0 ]
     then 
