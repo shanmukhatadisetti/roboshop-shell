@@ -52,4 +52,4 @@ SCRIPT_END=$(date +%s)
 
 SCRIPT_TOTAL_TIME=$(( $SCRIPT_END - $SCRIPT_START ))
 
-echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME $W" | tee -a $LOG_FILE
+echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME-seconds $W" | tee -a $LOG_FILE
