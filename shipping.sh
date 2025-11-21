@@ -83,6 +83,7 @@ VALIDATION $? "Installing Mysql Client"
 mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql &>>$LOG_FILE
 mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/app-user.sql &>>$LOG_FILE
 mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql &>>$LOG_FILE
+VALIDATION $? "Loading Data into Mysql"
 
 SCRIPT_END=$(date +%s)
 
