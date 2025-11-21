@@ -72,7 +72,7 @@ VALIDATION $? "Installing Dependencies"
 cp $user_home/user.service /etc/systemd/system/user.service &>>$LOG_FILE
 VALIDATION $? "Copying user Service File"
 
-systemctl daemon-reload
-systemctl enable user 
-systemctl restart user
+systemctl daemon-reload &>>$LOG_FILE
+systemctl enable user &>>$LOG_FILE
+systemctl restart user &>>$LOG_FILE
 VALIDATION $? "Starting user Service"
