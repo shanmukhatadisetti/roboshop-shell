@@ -36,16 +36,16 @@ VALIDATION(){
     fi
 }
 
-dnf install mysql-server -y
+dnf install mysql-server -y &>>$LOG_FILE
 VALIDATION $? "Installing Mysql Server"
 
-systemctl enable mysqld
+systemctl enable mysqld &>>$LOG_FILE
 VALIDATION $? "Enabling Mysql service"
 
-systemctl start mysqld
+systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting Mysql service"
 
-mysql_secure_installation --set-root-pass $MYSQL_PASSWORD
+mysql_secure_installation --set-root-pass $MYSQL_PASSWORD &>>$LOG_FILE
 VALIDATION $? "Setting up Mysql password"
 
 SCRIPT_END=$(date +%s)
