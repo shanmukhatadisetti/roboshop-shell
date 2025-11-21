@@ -45,7 +45,7 @@ VALIDATION $? "Enabling Mysql service"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting Mysql service"
 
-mysql_secure_installation --set-root-pass $MYSQL_PASSWORD &>>$LOG_FILE
+mysql_secure_installation --set-root-pass RoboShop@1 &>>$LOG_FILE
 VALIDATION $? "Setting up Mysql password"
 
 SCRIPT_END=$(date +%s)
