@@ -27,8 +27,8 @@ else
     exit 1
 fi
 
-echo -e "$Y Enter Mysql Passowrd $W"
-read -s MYSQL_PASSWORD
+# echo -e "$Y Enter Mysql Passowrd $W"
+# read -s MYSQL_PASSWORD
 
 VALIDATION(){
     if [ $1 == 0 ]
@@ -80,9 +80,9 @@ VALIDATION $? "Starting cart Service"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATION $? "Installing Mysql Client"
 
-mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/schema.sql &>>$LOG_FILE
-mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/app-user.sql &>>$LOG_FILE
-mysql -h mysql.autonagar.in -uroot -p$MYSQL_PASSWORD < /app/db/master-data.sql &>>$LOG_FILE
+mysql -h mysql.autonagar.in -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
+mysql -h mysql.autonagar.in -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE
+mysql -h mysql.autonagar.in -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
 VALIDATION $? "Loading Data into Mysql"
 
 SCRIPT_END=$(date +%s)
