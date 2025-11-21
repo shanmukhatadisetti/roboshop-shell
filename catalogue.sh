@@ -73,7 +73,7 @@ cp $user_home/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FI
 VALIDATION $? "Copying Catalogue Service File"
 
 systemctl daemon-reload
-systemctl enable catalogue 
+systemctl enable catalogue &>>$LOG_FILE
 systemctl restart catalogue
 VALIDATION $? "Starting Catalogue Service"
 

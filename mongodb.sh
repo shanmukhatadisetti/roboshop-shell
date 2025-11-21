@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/
+
+SCRIPT_START=$(date +%s)
 userid=$(id -u)
 
 R="\e[31m"
@@ -51,3 +53,9 @@ VALIDATION $? "changing mongod.conf file"
 
 systemctl restart mongod &>>$LOG_FILE
 VALIDATION $? "restarting mongodb"
+
+SCRIPT_END=$(date +%s)
+
+SCRIPT_TOTAL_TIME=$(( $SCRIPT_START - $SCRIPT_END ))
+
+echo -e "Total Execution Time For the Script To Run:: $SCRIPT_TOTAL_TIME"
