@@ -30,7 +30,7 @@ VALIDATION(){
         echo -e "$R ERROR:: $2 has been failed $W" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$G  $2 has been succesful" | tee -a $LOG_FILE
+        echo -e "$G  $2 has been succesful $W" | tee -a $LOG_FILE
     fi
 }
 
@@ -58,4 +58,4 @@ SCRIPT_END=$(date +%s)
 
 SCRIPT_TOTAL_TIME=$(( $SCRIPT_START - $SCRIPT_END ))
 
-echo -e "Total Execution Time For the Script To Run:: $SCRIPT_TOTAL_TIME"
+echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME $W"
