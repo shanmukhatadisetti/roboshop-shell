@@ -63,7 +63,7 @@ cd /app
 unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATION $? "Changed to /app and Unzipping Content"
 
-maven clean package &>>$LOG_FILE
+ mvn clean package &>>$LOG_FILE
 VALIDATION $? "Installing Dependencies"
 
 mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
