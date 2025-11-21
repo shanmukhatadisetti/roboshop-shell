@@ -1,5 +1,5 @@
 #!/bin/bash
-
+SCRIPT_START=$(date +%s)
 userid=$(id -u)
 
 R="\e[31m"
@@ -76,3 +76,9 @@ systemctl daemon-reload &>>$LOG_FILE
 systemctl enable user &>>$LOG_FILE
 systemctl restart user &>>$LOG_FILE
 VALIDATION $? "Starting user Service"
+
+SCRIPT_END=$(date +%s)
+
+SCRIPT_TOTAL_TIME=$(( $SCRIPT_END - $SCRIPT_START ))
+
+echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME $W" | tee -a $LOG_FILE

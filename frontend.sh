@@ -1,5 +1,5 @@
 #!/bin/bash
-
+SCRIPT_START=$(date +%s)
 user_id=$(id -u)
 
 R="\e[31m"
@@ -55,8 +55,14 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATION $? "Changing Directory /usr/share/nginx/html and Unzipping Content"
 
-cp $user_home/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+cp $user_home/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE /etc/nginx/nginx.conf
 VALIDATION $? "Copying Nginx conf file"
 
 systemctl restart nginx 
 VALIDATION $? "Restarting Nginx Service"
+
+SCRIPT_END=$(date +%s)
+
+SCRIPT_TOTAL_TIME=$(( $SCRIPT_END - $SCRIPT_START ))
+
+echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME $W" | tee -a $LOG_FILE
