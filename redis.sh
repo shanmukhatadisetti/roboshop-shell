@@ -1,5 +1,5 @@
 #!/bin/bash
-
+SCRIPT_START=$(date +%s)
 user_id=$(id -u)
 
 R="\e[31m"
@@ -48,3 +48,8 @@ VALIDATION $? "Editing Redis Conf"
 systemctl enable redis &>>$LOG_FILE
 systemctl start redis &>>$LOG_FILE
 VALIDATION $? "Restarted redis service"
+SCRIPT_END=$(date +%s)
+
+SCRIPT_TOTAL_TIME=$(( $SCRIPT_END - $SCRIPT_START ))
+
+echo -e "Total Execution Time For the Script To Run:: $Y $SCRIPT_TOTAL_TIME $W" | tee -a $LOG_FILE
