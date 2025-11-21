@@ -55,7 +55,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATION $? "Changing Directory /usr/share/nginx/html and Unzipping Content"
 
-cp $user_home/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE /etc/nginx/nginx.conf
+cp $user_home/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE 
 VALIDATION $? "Copying Nginx conf file"
 
 systemctl restart nginx 
