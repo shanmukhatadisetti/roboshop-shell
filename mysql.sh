@@ -15,8 +15,8 @@ mkdir -p $SCRIPT_PATH
 
 echo "Script executed on:: $(date)"
 
-echo -e "Enter MYSQL PASSWORD"
-read -s MYSQL_PASSWORD
+# echo -e "Enter MYSQL PASSWORD"
+# read -s MYSQL_PASSWORD
 
 if [ $user_id == 0 ]
 then
