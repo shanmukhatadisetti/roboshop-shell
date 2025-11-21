@@ -73,8 +73,8 @@ cp $user_home/shipping.service /etc/systemd/system/shipping.service &>>$LOG_FILE
 VALIDATION $? "Copying cart Service File"
 
 systemctl daemon-reload &>>$LOG_FILE
-systemctl enable cart &>>$LOG_FILE
-systemctl restart cart &>>$LOG_FILE
+systemctl enable shipping &>>$LOG_FILE
+systemctl restart shipping &>>$LOG_FILE
 VALIDATION $? "Starting cart Service"
 
 dnf install mysql -y &>>$LOG_FILE
